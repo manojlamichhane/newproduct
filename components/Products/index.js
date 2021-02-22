@@ -1,31 +1,25 @@
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import {
-  Text,
-  View,
-  ImageBackground,
-  StyleSheet,
-  ScrollView,
-  TouchableHighlight,
-  Modal,
-  Image,
+  Text,View,ImageBackground,StyleSheet,ScrollView,
+  TouchableHighlight,Modal,Image,Button,
 } from "react-native";
 import { Colors } from "../constants";
 import Icons from "../Icons";
+import Product from '../Product'
 
 const Products = (props) => {
   const [productOpen, setProductOpen] = useState(false);
   const [pressedProduct, setPressedProduct] = useState([]);
-
   const all = props.data;
+  
   const getproduct = (value) => {
     setProductOpen(true);
     setPressedProduct(
       all.filter((item) => {
-        item.id == value;
+        return item.id == value;
       })
     );
-    console.log(pressedProduct);
   };
 
   return (
@@ -79,23 +73,7 @@ const Products = (props) => {
               Product
             </Text>
           </View>
-          {pressedProduct &&
-            pressedProduct.map((item) => {
-              return (
-                <View key={item.id}>
-                  <Text>Product</Text>
-                  <Image
-                    resizeMode="contain"
-                    style={styles.image}
-                    source={{ uri: item.imageurl }}
-                  />
-                  <Text>{item.title}</Text>
-                  <Text>{item.desc}</Text>
-                  <Text>{item.price}</Text>
-                  <Text>{item.category}</Text>
-                </View>
-              );
-            })}
+          <Product data={pressedProduct}/>
         </Modal>
       </View>
     </View>
@@ -132,7 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   addnavbar: {
-    flex: 0.12,
+    height:"9%",
     padding: 10,
     backgroundColor: Colors.primary,
     flexDirection: "row",

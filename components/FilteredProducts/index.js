@@ -15,7 +15,11 @@ const FilteredProducts = (props) => {
   const changeFilter = (value) => {
     setFilteredOpen(true);
     setCategory(value);
-    setFilteredProduct(all.filter((item) => item.category == category));
+    setFilteredProduct(
+      all.filter((item) => {
+        return item.category == category;
+      })
+    );
   };
   return (
     <View style={styles.container}>
@@ -30,7 +34,6 @@ const FilteredProducts = (props) => {
         ]}
       />
       <Products data={all} />
-
       <View style={styles.container}>
         <Modal visible={filteredOpen}>
           <View style={styles.navbar}>
@@ -57,8 +60,7 @@ const FilteredProducts = (props) => {
               { label: "SUV", value: "suv" },
             ]}
           />
-
-          <Products data={filteredProduct} />
+          <Products data={filteredProduct}/>
         </Modal>
       </View>
     </View>
